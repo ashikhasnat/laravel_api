@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\ProfileController;
-use App\Http\Controllers\Api\UserController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\MapApiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,3 +13,10 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/places', MapApiController::class);
+    Route::get('/user', function () {
+        return request()->user();
+    });
+});

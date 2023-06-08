@@ -1,0 +1,84 @@
+{
+	"info": {
+		"_postman_id": "f4cee2df-e217-45ed-8790-0ff9a4899c28",
+		"name": "Map api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27882555",
+		"_collection_link": "https://universal-crescent-484816.postman.co/workspace/4ee068e5-9f9a-4e48-9540-278d8f7d734d/collection/27882555-f4cee2df-e217-45ed-8790-0ff9a4899c28?action=share&creator=27882555&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.sendRequest({\r",
+							"    url: 'http://127.0.0.1:8000/sanctum/csrf-cookie',\r",
+							"    method: 'GET'\r",
+							"}, function (error, response, {cookies}) {\r",
+							"    if (!error){\r",
+							"        pm.collectionVariables.set('xsrf-cookie', cookies.get('XSRF-TOKEN'))\r",
+							"    }\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{xsrf-cookie}}",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "http://127.0.0.1:8000",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/places?lat=37.7749&long=-122.4194",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"places"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "37.7749"
+						},
+						{
+							"key": "long",
+							"value": "-122.4194"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "xsrf-cookie",
+			"value": ""
+		}
+	]
+}
